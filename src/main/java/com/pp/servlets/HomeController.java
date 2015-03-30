@@ -12,36 +12,25 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "HomeController", urlPatterns = "/gfgf")
+@WebServlet(name = "HomeController", value = "/home", loadOnStartup=1)
 public class HomeController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(HomeController.class);
 
     private static final DAOFactory daoFactory = DAOFactory.getInstance();
     private static final DeptDAO deptDAO = daoFactory.getDeptDAO();
-    /*
-    @Override
-    public void init() throws ServletException {
-        final DAOFactory daoFactory = DAOFactory.getInstance();
-        final DeptDAO deptDAO = daoFactory.getDeptDAO();
-    }
-    */
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+                                                throws ServletException, IOException {
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/home.jsp");
-        PrintWriter out= resp.getWriter();
+        rd.forward(req, resp);
 
-        //out.println("From DAO:: " + deptDAO.getDeptById(3));
-        rd.include(req, resp);
-
-        //out.println("From DAO:: " + deptDAO.getDeptById(3));
-        logger.info("dsdsdsd*********////////////// INFO");
-       // logger.info("LOGGING From DAO Query:: " + deptDAO.getDeptById(3));
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+                                                throws ServletException, IOException {
        doGet(req, resp);
     }
 }
