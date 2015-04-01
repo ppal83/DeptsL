@@ -17,7 +17,7 @@ public class Employee {
     private String email;
 
     private int deptId;
-	
+
     private int salary;
 
     public Employee() {
@@ -101,9 +101,16 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee [id = " + id + ", name = " + name + ", birthDate = "
-                + birthDate + ", hireDate = " + hireDate + ", address = " + address
-                + ", deptId = " + getDeptId() + ", salary = " + salary + "]";
+        return "Employee {" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", birthDate=" + birthDate +
+                ", hireDate=" + hireDate +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", deptId=" + deptId +
+                ", salary=" + salary +
+                '}';
     }
 
     @Override

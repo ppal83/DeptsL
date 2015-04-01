@@ -28,7 +28,7 @@ public class DeptDAOImpl implements DeptDAO {
             try (PreparedStatement stat = conn.prepareStatement(ADD_QUERY)) {
                 stat.setString(1, dept.getName());
                 int num = stat.executeUpdate();
-                logger.info(num + " row succefully added");
+                logger.debug(num + " row succefully added");
             }
         } catch (SQLException e) {
             JDBCUtil.printSQLException(e);
@@ -41,7 +41,7 @@ public class DeptDAOImpl implements DeptDAO {
             try (PreparedStatement stat = conn.prepareStatement(DELETE_QUERY)) {
                 stat.setInt(1, dept.getId());
                 int num = stat.executeUpdate();
-                logger.info(num + " row succefully deleted");
+                logger.debug(num + " row succefully deleted");
             }
         } catch (SQLException e) {
             JDBCUtil.printSQLException(e);
@@ -56,7 +56,7 @@ public class DeptDAOImpl implements DeptDAO {
                 stat.setString(2, dept.getName());
                 stat.setInt(3, dept.getId());
                 int num = stat.executeUpdate();
-                logger.info(num + " row succefully updated");
+                logger.debug(num + " row succefully updated");
             }
         } catch (SQLException e) {
             JDBCUtil.printSQLException(e);
@@ -69,7 +69,7 @@ public class DeptDAOImpl implements DeptDAO {
             try (PreparedStatement stat = conn.prepareStatement(DELETE_QUERY)) {
                 stat.setInt(1, id);
                 int num = stat.executeUpdate();
-                logger.info(num + " row succefully deleted");
+                logger.debug(num + " row succefully deleted");
             }
         } catch (SQLException e) {
             JDBCUtil.printSQLException(e);
@@ -88,6 +88,7 @@ public class DeptDAOImpl implements DeptDAO {
                     dept = new Dept(name);
                     dept.setId(id);
                 }
+                logger.debug(dept + " was fetched from db");
             }
         } catch (SQLException e) {
             JDBCUtil.printSQLException(e);
@@ -108,6 +109,7 @@ public class DeptDAOImpl implements DeptDAO {
                         dept.setId(id);
                         deptsList.add(dept);
                     }
+                    logger.debug(deptsList + " list was fetched from db");
                 }
             }
         } catch (SQLException e) {

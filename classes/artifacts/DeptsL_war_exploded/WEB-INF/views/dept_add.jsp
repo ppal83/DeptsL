@@ -18,7 +18,7 @@
 
   <h2>Add dept</h2>
 
-  <form id="dept-add-form" method="post">
+  <form class="dept-add-form" method="post">
 
     <table class="dept-add-table">
 
@@ -29,8 +29,15 @@
 
       <tr>
         <td colspan="2">
-          <button formaction="<c:url value="/dept/add.do" />"
+          <button formaction="<c:url value="/deptadd.html" />"
                   class="btn btn-primary cust">Add new dept</button>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <button onclick="window.history.back()"
+                  class="btn btn-primary btn-back">Go Back</button>
         </td>
       </tr>
 

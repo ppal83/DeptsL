@@ -68,6 +68,12 @@ table td {
     width: 20em;
 }
 
+.btn-back {
+    display: block;
+    width: 10em;
+    margin-top: 0.5em;
+}
+
 .error {
     color: red;
     font-weight: bold;

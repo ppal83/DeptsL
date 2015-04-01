@@ -16,37 +16,42 @@
 
   <%@ include file="/WEB-INF/fragments/header.jspf"%>
 
-  <h2>Add dept</h2>
+  <h2>Add employee</h2>
 
-  <form id="emp-add-form" method="post">
+  <form class="emp-add-form" method="post">
 
     <table class="emp-add-table">
 
       <tr>
         <td><label for="name" class="form-control">Name</label></td>
         <td><input type="text" id="name" name="name" class="form-control"></td>
+        <td>${errorsBean.name}</td>
       </tr>
 
       <tr>
         <td><label for="Birthday" class="form-control">Birthday</label></td>
         <td><input type="text" id="Birthday" name="Birthday"
                    class="form-control" placeholder="yyyy-MM-dd"></td>
+        <td>${errorsBean.birthDate}</td>
       </tr>
 
       <tr>
         <td><label for="HireDate" class="form-control">HireDate</label></td>
         <td><input type="text" id="HireDate" name="HireDate"
                    class="form-control" placeholder="yyyy-MM-dd"></td>
+        <td>${errorsBean.hireDate}</td>
       </tr>
 
       <tr>
         <td><label for="address" class="form-control">Address</label></td>
         <td><input type="text" id="address" name="address" class="form-control"></td>
+        <td>${errorsBean.address}</td>
       </tr>
 
       <tr>
         <td><label for="email" class="form-control">Email</label></td>
         <td><input type="text" id="email" name="email" class="form-control"></td>
+        <td>${errorsBean.email}</td>
       </tr>
 
       <tr>
@@ -61,11 +66,12 @@
       <tr>
         <td><label for="salary" class="form-control">Salary</label></td>
         <td><input type="text" id="salary" name="salary" class="form-control"></td>
+        <td>${errorsBean.salary}</td>
       </tr>
 
       <tr>
         <td colspan="2">
-          <button formaction="<c:url value="/employee/add.do" />"
+          <button formaction="<c:url value="/empadd.html" />"
                   class="btn btn-primary cust">Add new employee</button>
         </td>
       </tr>
@@ -73,7 +79,7 @@
       <tr>
         <td>
           <button onclick="window.history.back()"
-                  class="btn btn-primary cust">Go Back</button>
+                  class="btn btn-primary btn-back">Go Back</button>
         </td>
       </tr>
 

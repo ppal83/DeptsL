@@ -21,7 +21,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     private static final String ADD_QUERY = "INSERT INTO employee (name, birth_date, "
             + "hire_date, address, email, dept_id, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_QUERY = "DELETE FROM employee WHERE id = ?";
-    private static final String UPDATE_QUERY = "UPDATE employee SET id = ?, name = ?, "
+    private static final String UPDATE_QUERY = "UPDATE employee SET name = ?, "
             + "birth_date = ?, hire_date = ?, address = ?, email = ?, dept_id = ?, salary = ? "
             + "WHERE id = ?";
     public static final String REMOVE_BY_DEPTID_QUERY = "DELETE FROM employee WHERE dept_id = ?";
@@ -41,7 +41,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                 stat.setInt(6, emp.getDeptId());
                 stat.setInt(7, emp.getSalary());
                 int num = stat.executeUpdate();
-                logger.info(num + " row succefully added");
+                logger.debug(num + " row succefully added");
             }
         } catch (SQLException e) {
             JDBCUtil.printSQLException(e);
@@ -54,7 +54,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             try (PreparedStatement stat = conn.prepareStatement(DELETE_QUERY)) {
                 stat.setInt(1, emp.getId());
                 int num = stat.executeUpdate();
-                logger.info(num + " row succefully deleted");
+                logger.debug(num + " row succefully deleted");
             }
         } catch (SQLException e) {
             JDBCUtil.printSQLException(e);
@@ -72,8 +72,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                 stat.setString(5, emp.getEmail());
                 stat.setInt(6, emp.getDeptId());
                 stat.setInt(7, emp.getSalary());
+                stat.setInt(8, emp.getId());
                 int num = stat.executeUpdate();
-                logger.info(num + " row succefully updated");
+                logger.debug(num + " row succefully updated");
             }
         } catch (SQLException e) {
             JDBCUtil.printSQLException(e);
@@ -86,7 +87,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             try (PreparedStatement stat = conn.prepareStatement(DELETE_QUERY)) {
                 stat.setInt(1, id);
                 int num = stat.executeUpdate();
-                logger.info(num + " row succefully deleted");
+                logger.debug(num + " row succefully deleted");
             }
         } catch (SQLException e) {
             JDBCUtil.printSQLException(e);
@@ -99,7 +100,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             try (PreparedStatement stat = conn.prepareStatement(REMOVE_BY_DEPTID_QUERY)) {
                 stat.setInt(1, deptId);
                 int num = stat.executeUpdate();
-                logger.info(num + " row(s) succefully deleted");
+                logger.debug(num + " row(s) succefully deleted");
             }
         } catch (SQLException e) {
             JDBCUtil.printSQLException(e);
@@ -126,6 +127,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                             email, deptId, salary);
                     emp.setId(id);
                 }
+                logger.debug(emp + " was fetched from db");
             }
         } catch (SQLException e) {
             JDBCUtil.printSQLException(e);
@@ -155,6 +157,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                         emp.setId(id);
                         employeesList.add(emp);
                     }
+                    logger.debug(employeesList + " list was fetched from db");
                 }
             }
         } catch (SQLException e) {
@@ -184,6 +187,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                         emp.setId(id);
                         employeesList.add(emp);
                     }
+                    logger.debug(employeesList + " list was fetched from db");
                 }
             }
         } catch (SQLException e) {

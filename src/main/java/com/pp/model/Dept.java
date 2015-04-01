@@ -32,7 +32,7 @@ public class Dept {
 
     @Override
     public String toString() {
-        return "Dept{" +
+        return "Dept {" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

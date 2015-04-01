@@ -4,7 +4,7 @@
 
 <head>
 
-  <title>Add new dept page</title>
+  <title>Edit dept page</title>
 
   <%@ include file="/WEB-INF/fragments/imports.jspf"%>
 
@@ -16,21 +16,28 @@
 
   <%@ include file="/WEB-INF/fragments/header.jspf"%>
 
-  <h2>Add dept</h2>
+  <h2>Edit dept</h2>
 
-  <form class="dept-add-form" method="post">
+  <form class="dept-edit-form" method="post">
 
-    <table class="dept-add-table">
+    <table class="dept-edit-table">
+
+      <tr>
+        <td><label for="id" class="form-control">ID</label></td>
+        <td><input type="text" id="id" name="id" class="form-control"
+                   readonly value="${dept.id}" /></td>
+      </tr>
 
       <tr>
         <td><label for="name" class="form-control">Name</label></td>
-        <td><input type="text" id="name" name="name" class="form-control"></td>
+        <td><input type="text" id="name" name="name" class="form-control"
+                   value="${dept.name}" /></td>
       </tr>
 
       <tr>
         <td colspan="2">
-          <button formaction="<c:url value="/deptadd.html" />"
-                  class="btn btn-primary cust">Add new dept</button>
+          <button formaction="<c:url value="/deptedit.html" />"
+                  class="btn btn-primary cust">Edit dept</button>
         </td>
       </tr>
 

@@ -54,11 +54,11 @@
             <option value="${dept.id}">${dept.name}
               </c:forEach>
           </select></td>
-        <td><button formaction="employee/list" class="btn btn-primary">View</button></td>
+        <td><button formaction="emplist.html" class="btn btn-primary">View</button></td>
       </tr>
       <tr>
         <td colspan="2">
-          <button formaction="dept/list" class="btn btn-primary cust">Customize
+          <button formaction="deptlist.html" class="btn btn-primary cust">Customize
             dept list</button>
         </td>
       </tr>
