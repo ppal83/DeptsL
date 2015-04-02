@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class EmpAddForm implements Handler {
+public class EmployeeAddForm implements Handler {
 
-    private static final Logger logger = Logger.getLogger(EmpAddForm.class);
+    private static final Logger logger = Logger.getLogger(EmployeeAddForm.class);
 
     @Override
     public void handle(HttpServletRequest req, HttpServletResponse resp,

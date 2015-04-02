@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class EmpEditFormHandler implements Handler {
+public class EmployeeEditFormHandler implements Handler {
 
-    private static final Logger logger = Logger.getLogger(EmpEditFormHandler.class);
+    private static final Logger logger = Logger.getLogger(EmployeeEditFormHandler.class);
 
     @Override
     public void handle(HttpServletRequest req, HttpServletResponse resp,

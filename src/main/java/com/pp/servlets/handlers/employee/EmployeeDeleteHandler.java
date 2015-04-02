@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-public class EmpDeleteHandler implements Handler {
+public class EmployeeDeleteHandler implements Handler {
 
-    private static final Logger logger = Logger.getLogger(EmpDeleteHandler.class);
+    private static final Logger logger = Logger.getLogger(EmployeeDeleteHandler.class);
 
     @Override
     public void handle(HttpServletRequest req, HttpServletResponse resp,
@@ -24,7 +24,7 @@ public class EmpDeleteHandler implements Handler {
         int id = Integer.parseInt(req.getParameter("id"));
         int deptId = employeeDAO.getEmployeeById(id).getDeptId();
         employeeDAO.deleteEmployeeById(id);
-        logger.info("Forwarding to EmpListHandler");
+        logger.info("Forwarding to EmployeeListHandler");
 
         resp.sendRedirect(req.getContextPath() + "/emplist.html?deptId=" + deptId);
     }

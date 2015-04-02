@@ -6,7 +6,7 @@ import com.pp.DAO.EmployeeDAO;
 import com.pp.servlets.handlers.*;
 import com.pp.servlets.handlers.dept.*;
 import com.pp.servlets.handlers.employee.*;
-import com.pp.servlets.handlers.employee.EmpListHandler;
+import com.pp.servlets.handlers.employee.EmployeeListHandler;
 import com.pp.servlets.handlers.dept.DeptListHandler;
 import org.apache.log4j.Logger;
 import javax.servlet.ServletException;
@@ -40,18 +40,18 @@ public class DispatcherServlet extends HttpServlet {
         DAOs.put("employeeDAO", employeeDAO);
 
         logger.debug("Registering handlers");
-        handlers.put("/emplist.html", new EmpListHandler());
+        handlers.put("/emplist.html", new EmployeeListHandler());
         handlers.put("/deptlist.html", new DeptListHandler());
-        handlers.put("/empdel.html", new EmpDeleteHandler());
+        handlers.put("/empdel.html", new EmployeeDeleteHandler());
         handlers.put("/deptdel.html", new DeptDeleteHandler());
         handlers.put("/deptedit_form.html", new DeptEditFormHandler());
         handlers.put("/deptedit.html", new DeptEditHandler());
-        handlers.put("/empedit_form.html", new EmpEditFormHandler());
-        handlers.put("/empedit.html", new EmpEditHandler());
+        handlers.put("/empedit_form.html", new EmployeeEditFormHandler());
+        handlers.put("/empedit.html", new EmployeeEditHandler());
         handlers.put("/deptadd_form.html", new DeptAddFormHandler());
         handlers.put("/deptadd.html", new DeptAddHandler());
-        handlers.put("/empadd_form.html", new EmpAddForm());
-        handlers.put("/empadd.html", new EmpAddHandler());
+        handlers.put("/empadd_form.html", new EmployeeAddForm());
+        handlers.put("/empadd.html", new EmployeeAddHandler());
     }
 
     @Override

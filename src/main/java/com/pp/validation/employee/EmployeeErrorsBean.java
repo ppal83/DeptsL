@@ -1,6 +1,6 @@
-package com.pp.validation;
+package com.pp.validation.employee;
 
-public class EmpErrorsBean {
+public class EmployeeErrorsBean {
 
     private String name;
 
@@ -74,7 +74,7 @@ public class EmpErrorsBean {
 
     @Override
     public String toString() {
-        return "EmpErrorsBean {" +
+        return "EmployeeErrorsBean {" +
                 "name='" + name + '\'' +
                 ", birthDate='" + birthDate + '\'' +
                 ", hireDate='" + hireDate + '\'' +

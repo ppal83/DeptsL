@@ -14,9 +14,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class EmpListHandler implements Handler {
+public class EmployeeListHandler implements Handler {
 
-    private static final Logger logger = Logger.getLogger(EmpListHandler.class);
+    private static final Logger logger = Logger.getLogger(EmployeeListHandler.class);
 
     @Override
     public void handle(HttpServletRequest req, HttpServletResponse resp,
