@@ -30,8 +30,8 @@
 
       <tr>
         <td><label for="name" class="form-control">Name</label></td>
-        <td><input type="text" id="name" name="name" class="form-control"
-                   value="${dept.name}" /></td>
+        <td><input type="text" id="name" name="name" class="form-control" value="${dept.name}" /></td>
+        <td><span class="error">${errorsBean.name}</span></td>
       </tr>
 
       <tr>
