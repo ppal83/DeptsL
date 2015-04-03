@@ -6,10 +6,10 @@ import com.pp.model.Dept;
 
 public interface DeptDAO {
 
-    void addDept(Dept dept);
-    void deleteDept(Dept dept);
+    int addDept(Dept dept);
+    int deleteDept(Dept dept);
     void updateDept(Dept dept);
-    void deleteDeptById(int id);
+    int deleteDeptById(int id);
     Dept getDeptById(int id);
     List<Dept> getAllDepts();
 

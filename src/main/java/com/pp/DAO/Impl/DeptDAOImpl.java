@@ -1,9 +1,6 @@
 package com.pp.DAO.Impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import com.pp.DAO.DeptDAO;
@@ -23,29 +20,39 @@ public class DeptDAOImpl implements DeptDAO {
     private static final String GET_ALL_QUERY = "SELECT * FROM dept ORDER BY id";
 
     @Override
-    public void addDept(Dept dept) {
+    public int addDept(Dept dept) {
+        int num;
+        int res = 0;
         try (Connection conn = DBCPDataSourceFactory.getDataSource().getConnection()) {
-            try (PreparedStatement stat = conn.prepareStatement(ADD_QUERY)) {
+            try (PreparedStatement stat = conn.prepareStatement(ADD_QUERY, Statement.RETURN_GENERATED_KEYS)) {
                 stat.setString(1, dept.getName());
-                int num = stat.executeUpdate();
+                num = stat.executeUpdate();
+                try ( ResultSet rs = stat.getGeneratedKeys() ) {
+                    if (rs.next()) {
+                        res = rs.getInt(1);
+                    }
+                }
                 logger.debug(num + " row succefully added");
             }
         } catch (SQLException e) {
             JDBCUtil.printSQLException(e);
         }
+        return res;
     }
 
     @Override
-    public void deleteDept(Dept dept) {
+    public int deleteDept(Dept dept) {
+        int num = 0;
         try (Connection conn = DBCPDataSourceFactory.getDataSource().getConnection()) {
-            try (PreparedStatement stat = conn.prepareStatement(DELETE_QUERY)) {
+            try ( PreparedStatement stat = conn.prepareStatement(DELETE_QUERY) ) {
                 stat.setInt(1, dept.getId());
-                int num = stat.executeUpdate();
-                logger.debug(num + " row succefully deleted");
+                num = stat.executeUpdate();
+                logger.debug(num + " row(s) succefully deleted");
             }
         } catch (SQLException e) {
             JDBCUtil.printSQLException(e);
         }
+        return num;
     }
 
     @Override
@@ -64,16 +71,18 @@ public class DeptDAOImpl implements DeptDAO {
     }
 
     @Override
-    public void deleteDeptById(int id) {
+    public int deleteDeptById(int id) {
+        int num = 0;
         try (Connection conn = DBCPDataSourceFactory.getDataSource().getConnection()) {
             try (PreparedStatement stat = conn.prepareStatement(DELETE_QUERY)) {
                 stat.setInt(1, id);
-                int num = stat.executeUpdate();
-                logger.debug(num + " row succefully deleted");
+                num = stat.executeUpdate();
+                logger.debug(num + " row(s) succefully deleted");
             }
         } catch (SQLException e) {
             JDBCUtil.printSQLException(e);
         }
+        return num;
     }
 
     @Override

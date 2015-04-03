@@ -2,22 +2,12 @@ package com.pp;
 
 import com.pp.DAO.DAOFactory;
 import com.pp.DAO.DeptDAO;
-import com.pp.connection.DBCPDataSourceFactory;
 import com.pp.model.Dept;
-import com.pp.util.JDBCUtil;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Properties;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -26,68 +16,92 @@ public class DeptDAOTest {
     private static DAOFactory daoFactory;
     private static DeptDAO deptDAO;
 
-    //test queries
-    private static final String GET_QUERY = "SELECT * FROM dept WHERE name = ?";
-
     @BeforeClass
     public static void setUp() {
         daoFactory = DAOFactory.getInstance();
         deptDAO = daoFactory.getDeptDAO();
-
-        //------------------------------------
-        Properties props = new Properties();
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-
-        try (InputStream in = classLoader.getResourceAsStream("db.properties") ) {
-            props.load(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        /*
-        try ( InputStream in = Files.newInputStream(Paths.get("db.properties")) ) {
-            props.load(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
-
-        String drivers = props.getProperty("jdbc.drivers");
-        if (drivers != null) System.setProperty("jdbc.drivers", drivers);
-        String url = props.getProperty("jdbc.url");
-        String username = props.getProperty("jdbc.username");
-        String password = props.getProperty("jdbc.password");
-        System.out.println(url);
-        System.out.println(username);
-        System.out.println(password);
     }
 
     @Test
     public void testAddDept() {
-
-        //adding dept to db
         Dept dept = new Dept("testDept");
-        deptDAO.addDept(dept);
+        int testDeptNum = deptDAO.addDept(dept);
+        assertTrue("Shouldn't return 0", testDeptNum != 0);
 
-        Dept deptDb = null;
+        //deleting test dept
+        dept.setId(testDeptNum);
+        deptDAO.deleteDept(dept);
+    }
 
-        //fetching dept from db
-        try (Connection conn = DBCPDataSourceFactory.getDataSource().getConnection()) {
-            try (PreparedStatement stat = conn.prepareStatement(GET_QUERY)) {
-                stat.setString(1, "testDept");
-                try (ResultSet rs = stat.executeQuery()) {
-                    while (rs.next()) {
-                        String nameDb = rs.getString(2);
-                        deptDb = new Dept(nameDb);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            JDBCUtil.printSQLException(e);
-        }
+    @Test
+    public void testDeleteDept() {
+        //adding test dept
+        Dept dept = new Dept("testDept");
+        int testDeptNum = deptDAO.addDept(dept);
+        dept.setId(testDeptNum);
 
-        assertEquals(dept.getName(), deptDb.getName());
+        int num = deptDAO.deleteDept(dept);
+        assertTrue("Shouldn't return 0", num != 0);
+    }
 
+    @Test
+    public void testUpdateDept() {
+        //adding test dept
+        Dept dept = new Dept("testDept");
+        int testDeptNum = deptDAO.addDept(dept);
+        dept.setId(testDeptNum);
+
+        dept.setName("updatedDept");
+        deptDAO.updateDept(dept);
+
+        Dept dbDept = deptDAO.getDeptById(dept.getId());
+        assertEquals(dbDept.getName(), "updatedDept");
+
+        //deleting test dept
+        deptDAO.deleteDept(dbDept);
+    }
+
+    @Test
+    public void testDeleteDeptById() {
+        //adding test dept
+        Dept dept = new Dept("testDept");
+        int testDeptNum = deptDAO.addDept(dept);
+
+        int num = deptDAO.deleteDeptById(testDeptNum);
+        assertTrue("Shouldn't return 0", num != 0);
+    }
+
+    @Test
+    public void testGetDeptById() {
+        //adding test dept
+        Dept dept = new Dept("testDept");
+        int testDeptNum = deptDAO.addDept(dept);
+        dept.setId(testDeptNum);
+
+        Dept dbDept = deptDAO.getDeptById(dept.getId());
+        assertEquals(dbDept.getName(), "testDept");
+
+        //deleting test dept
+        deptDAO.deleteDept(dbDept);
+    }
+
+    @Test
+    public void testGetAllDepts() {
+        //adding test depts
+        Dept dept1 = new Dept("testDept1");
+        int testDept1Num = deptDAO.addDept(dept1);
+        dept1.setId(testDept1Num);
+
+        Dept dept2 = new Dept("testDept2");
+        int testDept2Num = deptDAO.addDept(dept2);
+        dept2.setId(testDept2Num);
+
+        List<Dept> list = deptDAO.getAllDepts();
+        assertNotNull(list);
+
+        //deleting test depts
+        deptDAO.deleteDept(dept1);
+        deptDAO.deleteDept(dept2);
     }
 
     @AfterClass

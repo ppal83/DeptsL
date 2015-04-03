@@ -16,12 +16,11 @@ public class AppContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        ServletContext ctx = sce.getServletContext();
-        String drv = ctx.getInitParameter("drv");
-        String url = ctx.getInitParameter("url");
-        String usr = ctx.getInitParameter("usr");
-        String pwd = ctx.getInitParameter("pwd");
-        DBCPDataSourceFactory.createDataSource(drv, url, usr, pwd);
+        try {
+            Class.forName(DBCPDataSourceFactory.class.getName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
